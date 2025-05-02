@@ -1,23 +1,27 @@
+
 const express = require('express');
-const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
 app.post('/process-payment', (req, res) => {
-  const paymentToken = req.body.token;
-  console.log('Received token:', paymentToken);
+  const token = req.body.token;
+  console.log("Received token:", token);
 
-  // Here you would forward the token to BlueSnap and handle the response.
-  // For now, we’ll just simulate a success.
-  res.json({ success: true, message: 'Payment processed successfully (simulated).' });
+  // TODO: Send token to BlueSnap for processing
+
+  res.status(200).json({ message: "Payment processed successfully" });
 });
 
 app.get('/', (req, res) => {
-  res.send('Google Pay Backend is running!');
+  res.send("Backend is live!");
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
+
